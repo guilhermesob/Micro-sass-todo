@@ -21,7 +21,7 @@ export const findOneUserController = async (request: Request, response: Response
         where: {
             email
         },
-        select{
+        select {
             id: true
         }
     })
