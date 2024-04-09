@@ -4,8 +4,11 @@ import { findOneUserController, listUserController } from './controllers/user.co
 const app = express();
 const port = 3000;
 
+app.use(express.json())
+
 app.get ('/users', listUserController)
-    app.get ('/user/:userId', findOneUserController)
+app.post ('/users', createUserController)
+app.get ('/user/:userId', findOneUserController)
 
 app.listen(port, () => {
     console.log(`Serves is running on http://localhost:${port}`);
