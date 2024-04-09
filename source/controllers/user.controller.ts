@@ -9,13 +9,26 @@ export const listUserController = async ( reques: Response, response: Response) 
 export const findOneUserController = async (request: Request, response: Response) => {
     const { userId } = request.params
     const { name, email} = request.body
+    const user = await prisma.user.findUnique({
+    where: {
+        id: userId
+      }
+    })
 
+    if(!user) {
+        return response.status(404).send({
+            error : 'Not found'
+        })
+    }
+
+export const createUserController = async (request: Request, response: Response) => {
+    const { userId } = request.body
+    
     if(!name || ! email){
         return response.send({
             error: 'Name or Email is invalid'
         })
     }
-
 
     const userEmailAlreadyExists = await prisma.user.findUnique({
         where: {
